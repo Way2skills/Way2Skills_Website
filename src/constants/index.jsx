@@ -12,8 +12,8 @@ import user6 from "../assets/profile-pictures/user6.jpg";
 
 export const navItems = [
   { label: "Home", href: "#" },
+  { label: "Courses", href: "#Courses" },
   { label: "About Us", href: "#aboutus" },
-  { label: "Blogger", href: "#" },
   // { label: "Register", href: "#" },
 ];
 
@@ -105,7 +105,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "Digital Marketing",
@@ -117,7 +118,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "C, C++ Programming",
@@ -129,7 +131,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "ReactJS",
@@ -141,7 +144,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "Core Java",
@@ -153,7 +157,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "MySQL",
@@ -165,7 +170,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "Python",
@@ -177,7 +183,8 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
   {
     "title": "Java Fullstack (J2EE)",
@@ -189,31 +196,15 @@ export const pricingOptions = [
       "Resources",
       "Exercises",
       "Certification"
-    ]
+    ],
+    "link":"https://forms.gle/3fEkjRfdJB1KBEY89"
   },
 ];
 
 
-export const resourcesLinks = [
-  { href: "#", text: "Getting Started" },
-  { href: "#", text: "Documentation" },
-  { href: "#", text: "Tutorials" },
-  { href: "#", text: "API Reference" },
-  { href: "#", text: "Community Forums" },
+export const SocialLinks = [
+  {name : "instagram" ,href: "https://www.instagram.com/way2.skills/"},
+  { name: "whatsapp" ,href: "https://www.google.com/url?q=https%3A%2F%2Fwhatsapp.com%2Fchannel%2F0029Val58Hw1iUxV2KXzIW2g&sa=D&sntz=1&usg=AOvVaw3DWWYgEl7oXLxwuGCSsv1y" },
 ];
 
-export const platformLinks = [
-  { href: "#", text: "Features" },
-  { href: "#", text: "Supported Devices" },
-  { href: "#", text: "System Requirements" },
-  { href: "#", text: "Downloads" },
-  { href: "#", text: "Release Notes" },
-];
 
-export const communityLinks = [
-  { href: "#", text: "Events" },
-  { href: "#", text: "Meetups" },
-  { href: "#", text: "Conferences" },
-  { href: "#", text: "Hackathons" },
-  { href: "#", text: "Jobs" },
-];

@@ -45,7 +45,17 @@ const Navbar = () => {
         </div>
         {mobileDrawerOpen && (
           <div className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
+           
             <ul>
+            <li>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd6Y23DHCAJYp9CNftfV26SJXBrGJFSe_efp7IL8o6nVfP0UQ/viewform"
+                target="_blank"
+                className="px-4 py-2 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white transition"
+              >
+                Register
+              </a>
+            </li>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">
                   <a href={item.href}>{item.label}</a>

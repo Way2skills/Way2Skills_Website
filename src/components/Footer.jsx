@@ -1,9 +1,12 @@
-import { resourcesLinks, platformLinks, communityLinks } from "../constants";
+import { SocialLinks } from "../constants";
 import { Facebook } from "lucide-react";
 import { Instagram } from "lucide-react";
 const Footer = () => {
   return (
+   
    <footer className="bg-gray-900 text-white py-8 bg-transparent">
+     <hr></hr>
+     <br />
   <div className="container mx-auto px-4">
     <div className="flex flex-col md:flex-row items-center justify-between">
       {/* Logo or Branding */}
@@ -15,7 +18,7 @@ const Footer = () => {
       {/* Social Media Links */}
       <div className="flex space-x-4">
         <a 
-          href="https://facebook.com" 
+          href={SocialLinks[1].href} 
           target="_blank" 
           rel="noopener noreferrer" 
           className="text-gray-400 hover:text-white transition-colors duration-300"
@@ -31,7 +34,7 @@ const Footer = () => {
 
         </a>
         <a 
-          href="https://instagram.com" 
+          href={SocialLinks[0].href} 
           target="_blank" 
           rel="noopener noreferrer" 
           className="text-gray-400 hover:text-white transition-colors duration-300"
