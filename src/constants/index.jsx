@@ -1,9 +1,7 @@
-import { BotMessageSquare } from "lucide-react";
-import { BatteryCharging } from "lucide-react";
-import { Fingerprint } from "lucide-react";
-import { ShieldHalf } from "lucide-react";
-import { PlugZap } from "lucide-react";
-import { GlobeLock } from "lucide-react";
+import { BookOpenCheck } from "lucide-react";
+import { LibraryBig } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
+import { BadgePercent } from "lucide-react";
 
 import user1 from "../assets/profile-pictures/user1.jpg";
 import user2 from "../assets/profile-pictures/user2.jpg";
@@ -14,9 +12,9 @@ import user6 from "../assets/profile-pictures/user6.jpg";
 
 export const navItems = [
   { label: "Home", href: "#" },
-  { label: "About Us", href: "#" },
+  { label: "About Us", href: "#aboutus" },
   { label: "Blogger", href: "#" },
-  { label: "Register", href: "#" },
+  // { label: "Register", href: "#" },
 ];
 
 export const testimonials = [
@@ -60,25 +58,25 @@ export const testimonials = [
 
 export const features = [
   {
-    icon: <BotMessageSquare />,
+    icon: <BookOpenCheck/>,
     text: "Online Learning",
     description:
       "All courses are available online for flexible learning.",
   },
   {
-    icon: <BatteryCharging />,
+    icon: <LibraryBig />,
     text: "Comprehensive Materials",
     description:
       "Each course includes videos, resources, and exercises.",
   },
   {
-    icon: <PlugZap />,
+    icon: <BadgeCheck />,
     text: "Certification",
     description:
       "All courses provide certification upon completion.",
   },
   {
-    icon: <GlobeLock />,
+    icon: <BadgePercent />,
     text: "Discounted Fees",
     description:
       "Some courses are available at discounted prices.",
