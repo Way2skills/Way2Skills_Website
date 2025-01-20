@@ -19,22 +19,22 @@ export const navItems = [
 
 export const testimonials = [
   {
-    user: "John Doe",
-    company: "Stellar Solutions",
-    image: user1,
+    user: "Sachinn P",
+    company: "Software developer",
+    image: "user1",
     text: "I am extremely satisfied with the services provided. The team was responsive, professional, and delivered results beyond my expectations.",
   },
   {
-    user: "Jane Smith",
+    user: "Pradeep",
     company: "Blue Horizon Technologies",
-    image: user2,
-    text: "I couldn't be happier with the outcome of our project. The team's creativity and problem-solving skills were instrumental in bringing our vision to life",
+    image: "user2",
+    text: "I couldn't be happier with the outcome of our project. The team's creativity and problem-solving skills were instrumental in bringing our vision to life.",
   },
   {
-    user: "Jane Smith",
-    company: "Blue Horizon Technologies",
-    image: user2,
-    text: "I couldn't be happier with the outcome of our project. The team's creativity and problem-solving skills were instrumental in bringing our vision to life",
+    user: "Logeshwaran V",
+    company: "AdaptX Tech",
+    image: "user3",
+    text: "The level of detail and attention the team provided was remarkable. Highly recommend their services.",
   },
 ];
 

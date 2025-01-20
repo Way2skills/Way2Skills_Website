@@ -4,23 +4,27 @@ import coding from "../assets/Coding workshop-bro.svg";
 import ReactTypingEffect from 'react-typing-effect';
 const HeroSection = () => {
   return (
-<div className="grid grid-cols-2 grid-rows-1 landing z-1">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center landing z-1">
   {/* Text Section */}
-  <div className="lg:w-1/2 sm:w-full lg:mb-20 col-span-1 my-20 z-10">
-    <h1 className="text-4xl sm:text-6xl lg:text-8xl text-left tracking-wide">
+  <div className="lg:w-3/4 sm:w-full mx-auto md:mx-0 text-center md:text-left my-10 z-10">
+    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wide">
       Welcome To<br />
-      <span className="bg-gradient-to-r from-orange-500 to-red-800 text-left text-transparent bg-clip-text">
+      <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
         WAY2SKILLS
       </span>
     </h1>
-    <h2 className="text-2xl text-left mt-4">
+    <h2 className="text-xl sm:text-2xl lg:text-3xl mt-4">
       Building an Innovative Education With Us.
     </h2>
   </div>
 
   {/* Image Section */}
-  <div className="w-full flex items-center justify-center col-span-1 z-5">
-    <img src={coding} alt="Coding" className=" " />
+  <div className="w-full flex items-center justify-center">
+    <img 
+      src={coding} 
+      alt="Coding" 
+      className="w-3/4 md:w-2/3 lg:w-1/2 xl:w-auto max-w-full h-auto"
+    />
   </div>
 
 
