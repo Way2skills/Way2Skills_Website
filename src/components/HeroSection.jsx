@@ -5,18 +5,16 @@ const HeroSection = () => {
   return (
     <div className="flex flex-col items-center mt-6 lg:mt-20">
       <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
-        VirtualR build tools
+      ABOUT OUR SKILLS
         <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
           {" "}
-          for developers
+          WAY2SKILLS
         </span>
       </h1>
       <p className="mt-10 text-lg text-center text-neutral-500 max-w-4xl">
-        Empower your creativity and bring your VR app ideas to life with our
-        intuitive development tools. Get started today and turn your imagination
-        into immersive reality!
+      Unleash your full potential with Way2Skills, your go-to platform for high-quality educational resources and skill development. Whether you want to improve your professional skills or explore new areas of interest, we have comprehensive courses and learning materials to help you reach your goals.
       </p>
-      <div className="flex justify-center my-10">
+      {/* <div className="flex justify-center my-10">
         <a
           href="#"
           className="bg-gradient-to-r from-orange-500 to-orange-800 py-3 px-4 mx-3 rounded-md"
@@ -26,7 +24,7 @@ const HeroSection = () => {
         <a href="#" className="py-3 px-4 mx-3 rounded-md border">
           Documentation
         </a>
-      </div>
+      </div> */}
       <div className="flex mt-10 justify-center">
         <video
           autoPlay

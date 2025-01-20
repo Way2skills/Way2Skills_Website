@@ -13,10 +13,10 @@ import user5 from "../assets/profile-pictures/user5.jpg";
 import user6 from "../assets/profile-pictures/user6.jpg";
 
 export const navItems = [
-  { label: "Features", href: "#" },
-  { label: "Workflow", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Testimonials", href: "#" },
+  { label: "Home", href: "#" },
+  { label: "About Us", href: "#" },
+  { label: "Blogger", href: "#" },
+  { label: "Register", href: "#" },
 ];
 
 export const testimonials = [
@@ -61,97 +61,158 @@ export const testimonials = [
 export const features = [
   {
     icon: <BotMessageSquare />,
-    text: "Drag-and-Drop Interface",
+    text: "Online Learning",
     description:
-      "Easily design and arrange your VR environments with a user-friendly drag-and-drop interface.",
-  },
-  {
-    icon: <Fingerprint />,
-    text: "Multi-Platform Compatibility",
-    description:
-      "Build VR applications that run seamlessly across multiple platforms, including mobile, desktop, and VR headsets.",
-  },
-  {
-    icon: <ShieldHalf />,
-    text: "Built-in Templates",
-    description:
-      "Jumpstart your VR projects with a variety of built-in templates for different types of applications and environments.",
+      "All courses are available online for flexible learning.",
   },
   {
     icon: <BatteryCharging />,
-    text: "Real-Time Preview",
+    text: "Comprehensive Materials",
     description:
-      "Preview your VR application in real-time as you make changes, allowing for quick iterations and adjustments.",
+      "Each course includes videos, resources, and exercises.",
   },
   {
     icon: <PlugZap />,
-    text: "Collaboration Tools",
+    text: "Certification",
     description:
-      "Work together with your team in real-time on VR projects, enabling seamless collaboration and idea sharing.",
+      "All courses provide certification upon completion.",
   },
   {
     icon: <GlobeLock />,
-    text: "Analytics Dashboard",
+    text: "Discounted Fees",
     description:
-      "Gain valuable insights into user interactions and behavior within your VR applications with an integrated analytics dashboard.",
+      "Some courses are available at discounted prices.",
   },
 ];
 
 export const checklistItems = [
   {
-    title: "Code merge made easy",
+    title: "Empower Your Learning Journey",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Unlock your potential with Way2Skills. Our courses are designed to help you build the skills you need to succeed in the modern world.",
   },
   {
-    title: "Review code without worry",
+    title: "Skill Development Made Easy",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Access high-quality educational resources and hands-on learning materials to boost your skills.",
   },
   {
-    title: "AI Assistance to reduce time",
+    title: "Learn at Your Own Pace",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Take courses in your preferred format, and learn from anywhere with online classes.",
   },
   {
-    title: "Share work in minutes",
+    title: "Stay Ahead of the Curve",
     description:
-      "Track the performance of your VR apps and gain insights into user behavior.",
+      "Stay updated with the latest trends and skills with our regularly updated course offerings.",
+  },
+  {
+    title: "Achieve Your Goals with Certification",
+    description:
+      "Each course comes with certification to showcase your newly acquired skills and stand out in your career.",
   },
 ];
 
+
 export const pricingOptions = [
   {
-    title: "Free",
-    price: "$0",
-    features: [
-      "Private board sharing",
-      "5 Gb Storage",
-      "Web Analytics",
-      "Private Mode",
-    ],
+    "title": "Photoshop",
+    "mode" : "online",
+    "actual_price": "7000",
+    "discount_price": "4000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
   },
   {
-    title: "Pro",
-    price: "$10",
-    features: [
-      "Private board sharing",
-      "10 Gb Storage",
-      "Web Analytics (Advance)",
-      "Private Mode",
-    ],
+    "title": "Digital Marketing",
+    "mode" : "online",
+    "actual_price": "7000", 
+    "discount_price" : "4000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
   },
   {
-    title: "Enterprise",
-    price: "$200",
-    features: [
-      "Private board sharing",
-      "Unlimited Storage",
-      "High Performance Network",
-      "Private Mode",
-    ],
+    "title": "C, C++ Programming",
+    "mode" : "online",
+    "actual_price": "7000", 
+    "discount_price" : "4000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
+  },
+  {
+    "title": "ReactJS",
+    "mode" : "online",
+    "actual_price": "25000", 
+    "discount_price" : "15000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
+  },
+  {
+    "title": "Core Java",
+    "mode" : "online",
+    "actual_price": "7000", 
+    "discount_price" : "4000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
+  },
+  {
+    "title": "MySQL",
+    "mode" : "online",
+    "actual_price": "5000", 
+    "discount_price" : "3000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
+  },
+  {
+    "title": "Python",
+    "mode" : "online",
+    "actual_price": "7000", 
+    "discount_price" : "4000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
+  },
+  {
+    "title": "Java Fullstack (J2EE)",
+    "mode" : "online",
+    "actual_price": "32000", 
+    "discount_price" : "20000",
+    "features": [
+      "Course videos",
+      "Resources",
+      "Exercises",
+      "Certification"
+    ]
   },
 ];
+
 
 export const resourcesLinks = [
   { href: "#", text: "Getting Started" },
