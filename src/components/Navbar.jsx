@@ -28,7 +28,8 @@ const Navbar = () => {
             ))}
             <li>
               <a
-                href="#"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSd6Y23DHCAJYp9CNftfV26SJXBrGJFSe_efp7IL8o6nVfP0UQ/viewform"
+                target="_blank"
                 className="px-4 py-2 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white transition"
               >
                 Register

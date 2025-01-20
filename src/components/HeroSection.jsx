@@ -1,21 +1,26 @@
 // import video1 from "../assets/video1.mp4";
 // import video2 from "../assets/video2.mp4";
 import coding from "../assets/Coding workshop-bro.svg";
-
+import ReactTypingEffect from 'react-typing-effect';
 const HeroSection = () => {
   return (
-    <div className="grid grid-rows-1 grid-col-2 grid-flow-col">
-  <div className="lg:w-1/2 sm:w-full lg:mb-20  col-span-1 ">
-    <h1 className="text-4xl sm:text-6xl lg:text-9xl text-left tracking-wide">
-      ABOUT OUR 
-      <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
-        {" "}WAY2SKILLS
+<div className="grid grid-cols-2 grid-rows-1 landing z-1">
+  {/* Text Section */}
+  <div className="lg:w-1/2 sm:w-full lg:mb-20 col-span-1 my-20 z-10">
+    <h1 className="text-4xl sm:text-6xl lg:text-8xl text-left tracking-wide">
+      Welcome To<br />
+      <span className="bg-gradient-to-r from-orange-500 to-red-800 text-left text-transparent bg-clip-text">
+        WAY2SKILLS
       </span>
     </h1>
-   
+    <h2 className="text-2xl text-left mt-4">
+      Building an Innovative Education With Us.
+    </h2>
   </div>
-  <div className="p-0 col-span-2 w-full">
-    <img src={coding} alt="Coding" className="w-auto" />
+
+  {/* Image Section */}
+  <div className="w-full flex items-center justify-center col-span-1 z-5">
+    <img src={coding} alt="Coding" className=" " />
   </div>
 
 
