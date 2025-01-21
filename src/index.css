@@ -9,6 +9,6 @@
   color-scheme: dark;
   background-color: #000000;
 opacity: 1;
-background-image: radial-gradient(#ff7d00 0.75px, #000000 0.75px);
+background-image: radial-gradient(#ff7d00 .5px, #000000 .5px);
 background-size: 15px 15px;
 }
