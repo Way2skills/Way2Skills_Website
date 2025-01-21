@@ -9,3 +9,4 @@ Currently, two official plugins are available:
 # Way2Skills
 # Way2Skills
 # Way2Skills_Website
+# Way2Skills_Website
