@@ -1,24 +1,16 @@
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import FeatureSection from "./components/FeatureSection";
-import Workflow from "./components/Workflow";
-import Footer from "./components/Footer";
-import Pricing from "./components/Pricing";
-import Testimonials from "./components/Testimonials";
 
+import AboutUs from "./components/AboutUs";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 const App = () => {
   return (
     <>
-      <Navbar />
-      <div className="max-w-7xl mx-auto pt-20 px-6">
-        <HeroSection />
-      
-        <FeatureSection />
-        <Workflow />
-        <Pricing />
-        <Testimonials />
-        <Footer />
-      </div>
+   <BrowserRouter>
+   <Routes>
+    <Route path="/" element={<Home/>}/>
+    <Route path="/about-us" element={<AboutUs/>}/>
+   </Routes>
+   </BrowserRouter>
     </>
   );
 };
