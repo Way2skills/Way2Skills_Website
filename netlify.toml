@@ -5,6 +5,6 @@ status=200
 
 [[redirects]]
 from="/blogger"
-to="/"
+to="/Courses"
 status=200
 force=true
