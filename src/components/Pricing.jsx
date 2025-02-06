@@ -14,7 +14,7 @@ const Pricing = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {pricingOptions.map((option, index) => (
           <div key={index} className="p-2">
-            <div className="p-10 border border-neutral-700 rounded-xl backdrop-blur-lg flex flex-col h-full">
+            <div className="p-10 border border-neutral-700 rounded-xl backdrop-blur-lg flex flex-col h-full transition-transform transform hover:scale-105 hover:shadow-2xl">
               <div className="flex-1">
                 <p className="text-4xl mb-8">
                   {option.title}

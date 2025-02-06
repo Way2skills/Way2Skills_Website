@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Pricing from "./Pricing";
 import Testimonials from "./Testimonials";
 import CourseRegistrationForm from "./CourseRegistrationForm";
+import ReviewSystem from "./ReviewSystem";
 const Home = () => {
   return (
     <>
@@ -16,8 +17,8 @@ const Home = () => {
         <FeatureSection />
         <Workflow />
         <Pricing />
-        
-        <Testimonials />
+        <ReviewSystem/>
+      
         <Footer />
        
       </div>
