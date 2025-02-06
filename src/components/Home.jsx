@@ -5,6 +5,7 @@ import Workflow from "./Workflow";
 import Footer from "./Footer";
 import Pricing from "./Pricing";
 import Testimonials from "./Testimonials";
+import CourseRegistrationForm from "./CourseRegistrationForm";
 const Home = () => {
   return (
     <>
@@ -18,7 +19,9 @@ const Home = () => {
         
         <Testimonials />
         <Footer />
+       
       </div>
+    
     </>
   );
 };
