@@ -55,9 +55,9 @@ export default function Navbar() {
                   ))}
                   <button
                     onClick={() => setRegisterOpen(true)}
-                    className="rounded-md px-3 py-2 text-sm font-medium bg-orange-600 hover:bg-orange-500 border border-orange-900"
+                    className=" px-3 py-2 text-sm font-medium hover:bg-orange-500 border border-orange-900 rounded-lg transition duration-200"
                   >
-                    Register
+                    Contact Us
                   </button>
                 </div>
 
@@ -87,9 +87,9 @@ export default function Navbar() {
                 <Disclosure.Button
                   as="button"
                   onClick={() => setRegisterOpen(true)}
-                  className="w-full text-left rounded-md px-3 py-2 text-base font-medium bg-orange-600 hover:bg-orange-500 border border-orange-900"
+                  className="w-full text-left px-3 py-2 text-base font-medium hover:bg-orange-500 border border-orange-900 rounded-lg transition duration-200"
                 >
-                  Register
+                  Contact Us
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>
