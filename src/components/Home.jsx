@@ -17,7 +17,9 @@ const Home = () => {
         <FeatureSection />
         <Workflow />
         <Pricing />
-        <ReviewSystem/>
+        <div className="w-[80vw] max-w-7xl mx-auto">
+          <ReviewSystem />
+        </div>
       
         <Footer />
        

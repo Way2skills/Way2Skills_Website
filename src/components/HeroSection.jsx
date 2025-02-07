@@ -1,7 +1,7 @@
 // import video1 from "../assets/video1.mp4";
 // import video2 from "../assets/video2.mp4";
 import coding from "../assets/Coding workshop-bro.svg";
-import ReactTypingEffect from 'react-typing-effect';
+// import ReactTypingEffect from 'react-typing-effect';
 const HeroSection = () => {
   return (
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center landing z-1">

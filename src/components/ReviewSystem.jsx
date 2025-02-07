@@ -70,7 +70,7 @@ const ReviewSystem = () => {
   };
 
   return (
-    <div className="review-system w-full">
+    <div className="review-system min-w-full">
       <div className="reviews-list  p-5">
         <h3 className='text-3xl sm:text-5xl lg:text-6xl text-center my-10 lg:my-20'>
           What People are Saying

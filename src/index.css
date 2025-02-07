@@ -11,7 +11,14 @@
 opacity: 1;
 background-image: radial-gradient(#ff7d00 .5px, #000000 .5px);
 background-size: 15px 15px;
+background-attachment: fixed;
 }
+/* Hide scrollbar for all elements */
+body {
+  overflow: auto;
+}
+
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -19,13 +26,14 @@ background-size: 15px 15px;
 }
 
 ::-webkit-scrollbar-track {
+  display: none;
   background: #f1f1f1; /* Light gray background */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #f66d3b; /* Blue thumb */
-  border-radius: 10px;
+  border-radius: 8px;
   transition: background 0.3s ease-in-out;
 }
 

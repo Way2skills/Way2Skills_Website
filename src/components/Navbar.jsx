@@ -1,100 +1,116 @@
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
+import { Fragment, useState } from "react";
 import logo from "../assets/logo.png";
-import { navItems } from "../constants";
-import ContactUs from "./ContactUs"; // Import the ContactUs component
+import ContactUs from "./ContactUs"; // Import the Register component
 
-const Navbar = () => {
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const navigation = [
+  { name: "Home", href: "/", current: false },
+  { name: "About Us", href: "/about-us", current: false },
+  { name: "Courses", href: "/Courses", current: false },
+];
 
-  const toggleNavbar = () => setMobileDrawerOpen(!mobileDrawerOpen);
-  const closeNavbar = () => setMobileDrawerOpen(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export default function Navbar() {
+  const [isRegisterOpen, setRegisterOpen] = useState(false);
 
   return (
     <>
-      <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-800/80 bg-black/50">
-        <div className="container px-4 mx-auto relative lg:text-sm">
-          <div className="flex justify-between items-center">
-            {/* Logo Section */}
-            <div className="flex items-center flex-shrink-0">
-              <img className="h-16 w-16 mr-2 border-2 border-white bg-[#e3e8e8]" src={logo} alt="Logo" />
-              <span className="text-xl tracking-tight text-white">Way2Skills</span>
-            </div>
+      <Disclosure as="nav" className="bg-black/70 backdrop-blur-lg border-b border-neutral-800 fixed w-full z-50 top-0">
+        {({ open }) => (
+          <>
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="relative flex h-16 items-center justify-between">
+                {/* Mobile menu button */}
+                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-none focus:ring-inset">
+                    {open ? <XMarkIcon className="size-6" aria-hidden="true" /> : <Bars3Icon className="size-6" aria-hidden="true" />}
+                  </Disclosure.Button>
+                </div>
 
-            {/* Desktop Navigation */}
-            <ul className="hidden lg:flex ml-14 space-x-12">
-              {navItems.map((item, index) => (
-                <li key={index}>
-                  <a className="text-white px-4 py-2 hover:text-orange-500 transition" href={item.href}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <button
-                  onClick={openModal}
-                  className="px-4 py-2 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white transition"
-                >
-                  Contact Us
-                </button>
-              </li>
-            </ul>
+                {/* Logo */}
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex items-center space-x-2">
+                    <img className="h-10 w-10 border-2 bg-white border-white rounded-full" src={logo} alt="Logo" />
+                    <span className="text-xl font-semibold text-white">Way2Skills</span>
+                  </div>
+                </div>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden md:flex">
-              <button onClick={toggleNavbar} className="text-white">
-                {mobileDrawerOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Drawer */}
-          {mobileDrawerOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center">
-              <button onClick={closeNavbar} className="absolute top-5 right-5 text-white hover:text-gray-400">
-                <X size={32} />
-              </button>
-              <ul className="text-center text-white space-y-6 text-xl">
-                {navItems.map((item, index) => (
-                  <li key={index} onClick={closeNavbar}>
-                    <a className="hover:text-orange-500 transition" href={item.href}>
-                      {item.label}
+                {/* Desktop Navigation */}
+                <div className="hidden sm:ml-6 sm:flex space-x-8">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className={classNames(
+                        item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                    >
+                      {item.name}
                     </a>
-                  </li>
-                ))}
-                <li>
+                  ))}
                   <button
-                    onClick={() => {
-                      closeNavbar();
-                      openModal();
-                    }}
-                    className="px-6 py-3 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white transition"
+                    onClick={() => setRegisterOpen(true)}
+                    className="rounded-md px-3 py-2 text-sm font-medium bg-orange-600 hover:bg-orange-500 border border-orange-900"
                   >
-                    Contact Us
+                    Register
                   </button>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </nav>
+                </div>
 
-      {/* Contact Us Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0  flex items-center justify-center backdrop-blur-lg bg-black bg-opacity-50 z-50">
-          <div className="bg-black backdrop-blur-lg border border-neutral-700 p-9 rounded-lg shadow-lg w-11/12 sm:w-2/3 lg:w-1/3 relative">
-            <button onClick={closeModal} className="absolute top-4 right-4 text-white hover:text-gray-400 z-5">
-              <X size={24} />
+                {/* Right Section */}
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {/* Notification and Profile icons */}
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2">
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
+                <Disclosure.Button
+                  as="button"
+                  onClick={() => setRegisterOpen(true)}
+                  className="w-full text-left rounded-md px-3 py-2 text-base font-medium bg-orange-600 hover:bg-orange-500 border border-orange-900"
+                >
+                  Register
+                </Disclosure.Button>
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+
+      {/* Register Modal */}
+      {isRegisterOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          <div className="relative bg-neutral-900 rounded-lg p-6 max-w-md w-full mx-4 border border-neutral-800">
+            <button
+              onClick={() => setRegisterOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10"
+            >
+              <XMarkIcon className="h-6 w-6" />
             </button>
-            <ContactUs closeModal={closeModal} />
+            <ContactUs onClose={() => setRegisterOpen(false)} />
           </div>
         </div>
       )}
     </>
   );
-};
-
-export default Navbar;
+}

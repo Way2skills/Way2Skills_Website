@@ -43,7 +43,7 @@ const ContactUs = ({ closeModal }) => {
   };
 
   return (
-    <div className="p-8 backdrop-blur-lg border border-neutral-700 rounded-xl w-full flex flex-col shadow-lg bg-black/10 z-3">
+    <div className="p-8 backdrop-blur-lg border border-neutral-700 rounded-xl w-full flex flex-col shadow-lg bg-black/10 z-0">
       <h2 className="text-4xl font-bold mb-6 text-center">Contact Us</h2>
       <form onSubmit={handleSubmit}>
         <input

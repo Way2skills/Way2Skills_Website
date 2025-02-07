@@ -16,7 +16,7 @@ const Pricing = () => {
           <div key={index} className="p-2">
             <div className="p-10 border border-neutral-700 rounded-xl backdrop-blur-lg flex flex-col h-full transition-transform transform hover:scale-105 hover:shadow-2xl">
               <div className="flex-1">
-                <p className="text-4xl mb-8">
+                <p className="text-4xl mb-8 break-words whitespace-normal">
                   {option.title}
                   {option.mode === "online" && (
                     <span className="bg-gradient-to-r from-orange-500 to-red-400 text-transparent bg-clip-text text-xl mb-4 ml-2">
