@@ -1,9 +1,11 @@
 import { features } from "../constants";
-
+import { SocialLinks } from "../constants";
+import { Instagram } from "lucide-react";
 const FeatureSection = () => {
   return (
     <div className="relative mt-20 border-b pb-0 border-neutral-800 min-h-[800px]" id="aboutus">
       <div className="text-center">
+          
         <span className="bg-neutral-900 text-orange-500 rounded-full h-6 text-sm font-medium px-2 py-1 uppercase">
           Feature about us
         </span>
