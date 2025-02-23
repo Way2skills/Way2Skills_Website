@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center landing z-1">
   {/* Text Section */}
-  <div className="lg:w-3/4 sm:w-full mx-auto md:mx-0 text-center md:text-left my-10 z-10">
+  <div className="lg:w-3/4 sm:w-full mx-auto md:mx-0 text-center md:text-left my-10 z-8">
     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-wide">
       Welcome To<br />
       <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
