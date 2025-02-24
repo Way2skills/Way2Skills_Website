@@ -5,6 +5,9 @@ import Courses from "./components/Courses";
 import { BrowserRouter as Router, Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import CourseRegistrationForm from "./components/CourseRegistrationForm";
 import ContactUs from "./components/ContactUs";
+import TermsAndConditions from "./components/TermsAndConditions";
+import PoliciesComponent from "./components/PoliciesComponent";
+import RefundPolicy from "./components/RefundPolicy";
 const App = () => {
   return (
     <>
@@ -17,6 +20,10 @@ const App = () => {
     <Route path="*" element={<Navigate to="/" />} />
     <Route path="/Register" element={<ContactUs/>}/>
     <Route path="/CourseRegister" element={<CourseRegistrationForm/>}/>
+    <Route path="/T&C" element={<TermsAndConditions/>}/>
+    <Route path="/privacy_policy" element={<PoliciesComponent/>}/>
+    <Route path="/refund_policy" element={<RefundPolicy/>}/>
+
     
    </Routes>
    </BrowserRouter>

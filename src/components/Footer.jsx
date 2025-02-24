@@ -17,6 +17,8 @@ const Footer = () => {
 
       {/* Social Media Links */}
       <div className="flex space-x-4">
+    
+
         <a 
           href={SocialLinks[1].href} 
           target="_blank" 
@@ -45,8 +47,18 @@ const Footer = () => {
     </div>
 
     {/* Footer Bottom */}
+    <div className="flex justify-center text-right text-sm m-5 text-gray-500">
+    <a className="mx-3" href="/T&C"><u>Terms and Conditions</u></a> 
+    <a className="mx-3" href="/privacy_policy"><u>Privacy Policy</u></a> 
+
+    <a className="mx-3" href="/refund_policy"><u>Refund Policy</u></a> 
+    </div>
+    {/* <div className=" text-right text-sm text-gray-500">
+    <a className="mx-5" href="/T&C"><u>Terms and Conditions</u></a> 
+    <a className="mx-5" href="/privacy_policy"><u>Privacy Policy</u></a> 
+    </div> */}
     <div className="mt-8 text-center text-sm text-gray-500">
-      © 2025 Way2Skills. All rights reserved.
+      © 2025 Way2Skills. All rights reserved. 
     </div>
   </div>
 </footer>

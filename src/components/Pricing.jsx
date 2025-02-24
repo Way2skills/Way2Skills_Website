@@ -57,7 +57,7 @@ const Pricing = () => {
       {/* Modal for Course Registration */}
       {showRegisterForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center backdrop-blur-lg items-center z-50">
-          <div className="bg-black rounded-lg w-full  max-w-xl relative mt-5 p-6">
+          <div className="bg-black rounded-lg w-full  max-w-xl relative mt-5 ">
             <button
               onClick={() => setShowRegisterForm(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
