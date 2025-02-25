@@ -27,7 +27,7 @@ const CourseRegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const apiUrl = "http://127.0.0.1:8000/register/"; // FastAPI backend
+    const apiUrl = "https://backend-way2skills.onrender.com/register/"; // FastAPI backend
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
