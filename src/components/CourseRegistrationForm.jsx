@@ -5,7 +5,7 @@ const CourseRegistrationForm = () => {
     name: "",
     phone_no: "",
     email: "",
-    date: "",
+    date_str: "", // Fix field name from "date" to "date_str"
     course: "",
     duration: "30 DAYS",
     transactionId: "",
@@ -27,7 +27,7 @@ const CourseRegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const apiUrl = "https://backend-way2skills.onrender.com/register/"; // FastAPI backend
+    const apiUrl = "https://backend-way2skills.onrender.com/register/";
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
@@ -42,7 +42,7 @@ const CourseRegistrationForm = () => {
         method: "POST",
         body: formDataToSend,
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
       });
 
@@ -56,7 +56,7 @@ const CourseRegistrationForm = () => {
           name: "",
           phone_no: "",
           email: "",
-          date: "",
+          date_str: "", // Reset correct field
           course: "",
           duration: "30 DAYS",
           transactionId: "",
@@ -67,10 +67,12 @@ const CourseRegistrationForm = () => {
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
-        alert(`Submission success! ${result.detail}`);
-      } 
-      
-    }  finally {
+      } else {
+        alert(`Error: ${result.detail || "Something went wrong!"}`);
+      }
+    } catch (error) {
+      alert(`Submission failed! ${error.message}`);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -117,8 +119,8 @@ const CourseRegistrationForm = () => {
 
         <input
           type="date"
-          name="date"
-          value={formData.date}
+          name="date_str" // Fixed field name
+          value={formData.date_str}
           onChange={handleChange}
           required
           className="w-full p-3 mb-3 border border-gray-600 bg-black text-white rounded-md outline-none"
@@ -156,7 +158,6 @@ const CourseRegistrationForm = () => {
           type="file"
           name="file"
           onChange={handleFileChange}
-          placeholder="choose the screenshot"
           required
           className="w-full p-3 mb-3 border border-gray-600 bg-black text-white rounded-md outline-none"
         />
