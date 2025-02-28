@@ -38,8 +38,7 @@ In case of complaints regarding the products that come with a warranty from the 
 please refer the issue to them.
 </li>
 <li className="mb-4 text-gray-300 text-justify">
-In case of any refunds approved by <b>WAY2SKILLS</b>, it will take <b>3 days</b> for the refund to be 
-processed to you.
+In case of any refunds approved by <b>WAY2SKILLS</b>, it will take <b>3 days</b> to credit to your bank account.
 </li>
       </ul>
     </div>

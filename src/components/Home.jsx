@@ -15,9 +15,10 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <PopupModal />  {/* Add the pop-up modal here */}
+      <PopupModal /> {/* Add the pop-up modal here */}
       <div className="max-w-7xl mx-auto pt-20 px-6">
         <HeroSection />
+        
         {/* Social Media Links */}
         <div className="hidden sm:flex space-x-4 p-5">
           <a
@@ -44,6 +45,27 @@ const Home = () => {
             <Instagram />
           </a>
         </div>
+
+        {/* Office Address Section */}
+        <div className="mt-6 text-gray-300 text-sm leading-relaxed space-y-1">
+          <p className="font-semibold text-white">Office Address:</p>
+          <p>6/54A, Melapatti,</p>
+          <p>Near SMN Poultry Farm,</p>
+          <p>Melapatti, Namakkal,</p>
+          <p>Tamil Nadu, India - 637020</p>
+          <p className="mt-2 font-semibold text-white">Contact No: 
+            <a href="tel:+918610093520" className="ml-1 text-blue-400 hover:underline">
+              +91 86100 93520
+            </a>
+          </p>
+          <p className="font-semibold text-white">Email Id: 
+            <a href="mailto:way2skills.learn@gmail.com" className="ml-1 text-blue-400 hover:underline">
+              way2skills.learn@gmail.com
+            </a>
+          </p>
+        </div>
+
+
         <FeatureSection />
         <Workflow />
         <Pricing />
