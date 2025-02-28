@@ -68,17 +68,9 @@ const PoliciesComponent = () => {
         Please check our Privacy Policy periodically for changes. We may update this Privacy Policy to reflect changes to our
         information practices.
       </p>
-      <h2 className="text-xl font-semibold mt-4">Grievance Officer</h2>
+      
       <p className="my-4 text-gray-300 text-justify">
-        Insert Name of the Office:
-        <br />
-        Designation:
-        <br />
-        Insert Name and Address of the Company:
-      </p>
-      <h2 className="text-xl font-semibold mt-4">Contact Us</h2>
-      <p className="my-4 text-gray-300 text-justify">
-        Phone: <br></br>Time: Monday - Friday (9:00 - 18:00)
+        Phone: +918610093520 <br></br>Time: Monday - Friday (9:00 - 18:00)
       </p>
     </div>
     </div>
