@@ -12,7 +12,7 @@ const RegistrationTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
 
-    const API_URL = "http://127.0.0.1:8000/registrations/";
+    const API_URL = "https://backend-way2skills.onrender.com/registrations/";
 
     useEffect(() => {
         const fetchData = async () => {
