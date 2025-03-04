@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import imageCompression from "browser-image-compression";
 
 const CourseRegistrationForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone_no: "",
     email: "",
-    date: "",
+    date_str: "", // Fix field name from "date" to "date_str"
     course: "",
     duration: "30 DAYS",
     transactionId: "",
@@ -19,20 +20,35 @@ const CourseRegistrationForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setPaymentScreenshot(e.target.files[0]);
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const options = {
+      maxSizeMB: 1, // Compress to max 1MB
+      maxWidthOrHeight: 800, // Resize to fit within 800px
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      setPaymentScreenshot(compressedFile);
+    } catch (error) {
+      console.error("Image compression failed:", error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const apiUrl = "http://127.0.0.1:8000/register/"; // FastAPI backend
+    const apiUrl = "https://backend-way2skills.onrender.com/register/";
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
       formDataToSend.append(key, formData[key]);
     });
+
     if (paymentScreenshot) {
       formDataToSend.append("file", paymentScreenshot);
     }
@@ -42,7 +58,7 @@ const CourseRegistrationForm = () => {
         method: "POST",
         body: formDataToSend,
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
       });
 
@@ -56,7 +72,7 @@ const CourseRegistrationForm = () => {
           name: "",
           phone_no: "",
           email: "",
-          date: "",
+          date_str: "",
           course: "",
           duration: "30 DAYS",
           transactionId: "",
@@ -67,10 +83,12 @@ const CourseRegistrationForm = () => {
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
-        alert(`Submission success! ${result.detail}`);
-      } 
-      
-    }  finally {
+      } else {
+        alert(`Error: ${result.detail || "Something went wrong!"}`);
+      }
+    } catch (error) {
+      alert(`Submission failed! ${error.message}`);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -117,8 +135,8 @@ const CourseRegistrationForm = () => {
 
         <input
           type="date"
-          name="date"
-          value={formData.date}
+          name="date_str"
+          value={formData.date_str}
           onChange={handleChange}
           required
           className="w-full p-3 mb-3 border border-gray-600 bg-black text-white rounded-md outline-none"
@@ -156,7 +174,6 @@ const CourseRegistrationForm = () => {
           type="file"
           name="file"
           onChange={handleFileChange}
-          placeholder="choose the screenshot"
           required
           className="w-full p-3 mb-3 border border-gray-600 bg-black text-white rounded-md outline-none"
         />

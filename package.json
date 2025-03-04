@@ -13,6 +13,8 @@
     "@fillout/react": "^1.1.2",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "axios": "^1.8.1",
+    "browser-image-compression": "^2.0.2",
     "firebase": "^11.2.0",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
