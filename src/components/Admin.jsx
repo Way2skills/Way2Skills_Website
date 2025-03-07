@@ -27,12 +27,14 @@ function Login({ onLogin }) {
     setError("");
 
     try {
-      const response = await fetch("https://backend-way2skills.onrender.com/admin/login", {
+      const response = await fetch(`https://backend-way2skills.onrender.com/api/v1/admin/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        
+        headers: { "accept":"application/json","Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+       
       });
-
+      console.log(JSON.stringify({ email, password }));
       const data = await response.json();
 
       if (response.ok) {

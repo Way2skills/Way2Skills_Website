@@ -136,7 +136,7 @@ const RegistrationTable = () => {
                                 paginatedData.map((item, index) => (
                                     <tr
                                         key={item.id}
-                                        className={`border border-gray-700 hover:bg-orange-600 transition cursor-pointer `}
+                                        className={`border border-gray-700 hover:text-orange-400 transition cursor-pointer `}
                                         onClick={() => handleRowClick(item)}
                                     >
                                         <td className="px-4 py-2 border border-gray-700">
