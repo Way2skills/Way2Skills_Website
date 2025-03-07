@@ -42,7 +42,7 @@ const CourseRegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const apiUrl = "https://backend-way2skills.onrender.com/api/v1/register/";
+    const apiUrl =  `${import.meta.env.VITE_BACKEND_BASE_URL}/api/v1/register/`;
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
