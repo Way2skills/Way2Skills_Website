@@ -12,12 +12,12 @@ const RegistrationTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
 
-    const API_URL = "https://backend-way2skills.onrender.com/registrations/";
+    const API_URL = "https://backend-way2skills.onrender.com/api/v1/register/";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(API_URL);
+                const response = await axios.get(`${API_URL}registrations/`);
                 setData(response.data);
                 setFilteredData(response.data);
                 findDuplicates(response.data);
