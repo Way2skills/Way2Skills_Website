@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import RegistrationTable from "./RegistrationTable";
 import Reviews from "./Reviews";
+import Dashboard from "./Dashboard";
 
 // Admin navigation items
 const adminNavigation = [
@@ -176,6 +177,7 @@ export default function Admin() {
         <h1 className="text-2xl font-semibold">{activeSection}</h1>
         {activeSection === "Registrations" && <RegistrationTable />}
         {activeSection === "Reviews" && <Reviews />}
+        {activeSection === "Dashboard" && <Dashboard />}
       </div>
     </div>
   );

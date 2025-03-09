@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx";
 
 const RegistrationTable = () => {
   const [registrations, setRegistrations] = useState([]);
