@@ -4,6 +4,10 @@ import axios from "axios";
 const ReviewTable = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState({ key: "", direction: "asc" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   useEffect(() => {
     fetchReviews();
@@ -25,15 +29,49 @@ const ReviewTable = () => {
 
     try {
       await axios.delete(`https://backend-way2skills.onrender.com/api/v1/reviews/${id}`);
-      setReviews(reviews.filter((review) => review.id !== id)); // Update UI after deletion
+      setReviews(reviews.filter((review) => review.id !== id));
     } catch (error) {
       console.error("Error deleting review:", error);
     }
   };
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedReviews = [...reviews].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const valA = a[sortConfig.key];
+    const valB = b[sortConfig.key];
+    if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
+    if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const filteredReviews = sortedReviews.filter((review) =>
+    review.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const paginatedReviews = filteredReviews.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
   return (
-    <div className="overflow-x-auto">
-      <h2 className="text-xl font-bold mb-4">Reviews</h2>
+    <div className="overflow-x-auto mt-9">
+      
+      <input
+        type="text"
+        placeholder="Search by name..."
+        value={search}
+        onChange={handleSearch}
+        className="mb-4 p-2 border border-gray-500 rounded"
+      />
       {loading ? (
         <p>Loading reviews...</p>
       ) : (
@@ -41,17 +79,17 @@ const ReviewTable = () => {
           <thead className="bg-gray-900 text-white">
             <tr>
               <th className="px-4 py-2 border border-gray-700">#</th>
-              <th className="px-4 py-2 border border-gray-700">Name</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("name")}>Name</th>
               <th className="px-4 py-2 border border-gray-700">Comment</th>
-              <th className="px-4 py-2 border border-gray-700">Rating</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("rating")}>Rating</th>
               <th className="px-4 py-2 border border-gray-700">Date</th>
               <th className="px-4 py-2 border border-gray-700">Action</th>
             </tr>
           </thead>
           <tbody>
-            {reviews.map((review, index) => (
+            {paginatedReviews.map((review, index) => (
               <tr key={review.id} className="hover:bg-gray-800">
-                <td className="px-4 py-2 border border-gray-700">{index + 1}</td>
+                <td className="px-4 py-2 border border-gray-700">{(currentPage - 1) * rowsPerPage + index + 1}</td>
                 <td className="px-4 py-2 border border-gray-700">{review.name}</td>
                 <td className="px-4 py-2 border border-gray-700">{review.comment}</td>
                 <td className="px-4 py-2 border border-gray-700">{review.rating}</td>
@@ -69,6 +107,23 @@ const ReviewTable = () => {
           </tbody>
         </table>
       )}
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => setCurrentPage((prev) => (filteredReviews.length > prev * rowsPerPage ? prev + 1 : prev))}
+          disabled={filteredReviews.length <= currentPage * rowsPerPage}
+          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
