@@ -1,45 +1,76 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Reviews = () => {
+const ReviewTable = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get("https://backend-way2skills.onrender.com/api/v1/reviews");
-        setReviews(response.data);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchReviews();
   }, []);
 
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get("https://backend-way2skills.onrender.com/api/v1/reviews");
+      setReviews(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+      setLoading(false);
+    }
+  };
+
+  const deleteReview = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+
+    try {
+      await axios.delete(`https://backend-way2skills.onrender.com/api/v1/reviews/${id}`);
+      setReviews(reviews.filter((review) => review.id !== id)); // Update UI after deletion
+    } catch (error) {
+      console.error("Error deleting review:", error);
+    }
+  };
+
   return (
-    <div className="bg-black text-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-4 border-b pb-2 border-gray-700">User Reviews</h2>
+    <div className="overflow-x-auto">
+      <h2 className="text-xl font-bold mb-4">Reviews</h2>
       {loading ? (
-        <p className="text-gray-400">Loading...</p>
-      ) : reviews.length > 0 ? (
-        <div className="space-y-4 bg-black">
-          {reviews.map((review, index) => (
-            <div key={index} className="p-4 border border-gray-700 rounded-lg">
-              <p className="font-semibold text-lg">{review.name}</p>
-              <p className="text-yellow-400">{"⭐".repeat(review.rating)}</p>
-              <p className="text-gray-300">{review.comment}</p>
-              <p className="text-sm text-gray-500 mt-2">{new Date(review.createdAt).toLocaleString()}</p>
-            </div>
-          ))}
-        </div>
+        <p>Loading reviews...</p>
       ) : (
-        <p className="text-gray-400">No reviews available</p>
+        <table className="min-w-full border-collapse border border-gray-700">
+          <thead className="bg-gray-900 text-white">
+            <tr>
+              <th className="px-4 py-2 border border-gray-700">#</th>
+              <th className="px-4 py-2 border border-gray-700">Name</th>
+              <th className="px-4 py-2 border border-gray-700">Comment</th>
+              <th className="px-4 py-2 border border-gray-700">Rating</th>
+              <th className="px-4 py-2 border border-gray-700">Date</th>
+              <th className="px-4 py-2 border border-gray-700">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reviews.map((review, index) => (
+              <tr key={review.id} className="hover:bg-gray-800">
+                <td className="px-4 py-2 border border-gray-700">{index + 1}</td>
+                <td className="px-4 py-2 border border-gray-700">{review.name}</td>
+                <td className="px-4 py-2 border border-gray-700">{review.comment}</td>
+                <td className="px-4 py-2 border border-gray-700">{review.rating}</td>
+                <td className="px-4 py-2 border border-gray-700">{new Date(review.createdAt).toLocaleString()}</td>
+                <td className="px-4 py-2 border border-gray-700">
+                  <button
+                    onClick={() => deleteReview(review.id)}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
 };
 
-export default Reviews;
+export default ReviewTable;
