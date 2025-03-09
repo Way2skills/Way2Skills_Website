@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import * as XLSX from "xlsx";
 
 const RegistrationTable = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -26,17 +27,6 @@ const RegistrationTable = () => {
     }
   };
 
-  const deleteRegistration = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this record?")) return;
-
-    try {
-      await axios.delete(`${API_URL}${id}`);
-      setRegistrations(registrations.filter((registration) => registration.id !== id));
-    } catch (error) {
-      console.error("Error deleting registration:", error);
-    }
-  };
-
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
@@ -51,8 +41,8 @@ const RegistrationTable = () => {
 
   const sortedRegistrations = [...registrations].sort((a, b) => {
     if (!sortConfig.key) return 0;
-    const valA = a[sortConfig.key];
-    const valB = b[sortConfig.key];
+    const valA = a[sortConfig.key]?.toString().toLowerCase();
+    const valB = b[sortConfig.key]?.toString().toLowerCase();
     if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
     if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
@@ -64,16 +54,43 @@ const RegistrationTable = () => {
 
   const paginatedRegistrations = filteredRegistrations.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
+  const downloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(registrations);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
+    XLSX.writeFile(workbook, "registrations.xlsx");
+  };
+
+  const downloadCSV = () => {
+    const csvContent = [
+      ["Name", "Email", "Phone No", "Course"],
+      ...registrations.map((reg) => [reg.name, reg.email, reg.phone_no, reg.course]),
+    ]
+      .map((row) => row.join(","))
+      .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "registrations.csv";
+    link.click();
+  };
+
   return (
     <div className="overflow-x-auto mt-9">
-      
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={search}
-        onChange={handleSearch}
-        className="mb-4 p-2 border border-gray-500 rounded"
-      />
+      <div className="flex justify-between mb-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={search}
+          onChange={handleSearch}
+          className="p-2 border border-gray-500 rounded"
+        />
+        <div>
+          <button onClick={downloadExcel} className="px-4 py-2 bg-green-500 text-white rounded mr-2">Download Excel</button>
+          <button onClick={downloadCSV} className="px-4 py-2 bg-blue-500 text-white rounded">Download CSV</button>
+        </div>
+      </div>
       {loading ? (
         <p>Loading registrations...</p>
       ) : (
@@ -82,58 +99,23 @@ const RegistrationTable = () => {
             <tr>
               <th className="px-4 py-2 border border-gray-700">#</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("name")}>Name</th>
-              <th className="px-4 py-2 border border-gray-700">Email</th>
-              <th className="px-4 py-2 border border-gray-700">Phone No</th>
-              <th className="px-4 py-2 border border-gray-700">Course</th>
-              <th className="px-4 py-2 border border-gray-700">Action</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("email")}>Email</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("phone_no")}>Phone No</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("course")}>Course</th>
             </tr>
           </thead>
           <tbody>
             {paginatedRegistrations.map((registration, index) => (
-              <tr key={registration.id} className="hover:bg-gray-800 cursor-pointer" onClick={() => setSelectedTransaction(registration.file_base64)}>
+              <tr key={registration.id} className="hover:bg-gray-800 cursor-pointer">
                 <td className="px-4 py-2 border border-gray-700">{(currentPage - 1) * rowsPerPage + index + 1}</td>
                 <td className="px-4 py-2 border border-gray-700">{registration.name}</td>
                 <td className="px-4 py-2 border border-gray-700">{registration.email}</td>
                 <td className="px-4 py-2 border border-gray-700">{registration.phone_no}</td>
                 <td className="px-4 py-2 border border-gray-700">{registration.course}</td>
-                <td className="px-4 py-2 border border-gray-700">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); deleteRegistration(registration.id); }}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
-                  >
-                    Delete
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span>Page {currentPage}</span>
-        <button
-          onClick={() => setCurrentPage((prev) => (filteredRegistrations.length > prev * rowsPerPage ? prev + 1 : prev))}
-          disabled={filteredRegistrations.length <= currentPage * rowsPerPage}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
-      {selectedTransaction && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Transaction Image</h3>
-            <img src={`data:image/png;base64,${selectedTransaction}`} alt="Transaction" className="w-full" />
-            <button onClick={() => setSelectedTransaction(null)} className="mt-4 bg-red-500 px-4 py-2 rounded">Close</button>
-          </div>
-        </div>
       )}
     </div>
   );

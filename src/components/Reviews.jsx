@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 const ReviewTable = () => {
   const [reviews, setReviews] = useState([]);
@@ -49,8 +50,8 @@ const ReviewTable = () => {
 
   const sortedReviews = [...reviews].sort((a, b) => {
     if (!sortConfig.key) return 0;
-    const valA = a[sortConfig.key];
-    const valB = b[sortConfig.key];
+    const valA = a[sortConfig.key]?.toString().toLowerCase() || "";
+    const valB = b[sortConfig.key]?.toString().toLowerCase() || "";
     if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
     if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
@@ -62,27 +63,45 @@ const ReviewTable = () => {
 
   const paginatedReviews = filteredReviews.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
+  const downloadCSV = () => {
+    const csvHeader = "Name,Comment,Rating,Date\n";
+    const csvRows = filteredReviews.map(
+      (review) => `${review.name},${review.comment},${review.rating},${new Date(review.createdAt).toLocaleString()}`
+    ).join("\n");
+
+    const csvString = csvHeader + csvRows;
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    saveAs(blob, "reviews.csv");
+  };
+
   return (
     <div className="overflow-x-auto mt-9">
-      
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={search}
-        onChange={handleSearch}
-        className="mb-4 p-2 border border-gray-500 rounded"
-      />
+      <div className="flex mb-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={search}
+          onChange={handleSearch}
+          className="p-2 border border-gray-500 rounded mr-4"
+        />
+        <button
+          onClick={downloadCSV}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+        >
+          Download CSV
+        </button>
+      </div>
       {loading ? (
         <p>Loading reviews...</p>
       ) : (
         <table className="min-w-full border-collapse border border-gray-700">
           <thead className="bg-gray-900 text-white">
             <tr>
-              <th className="px-4 py-2 border border-gray-700">#</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("id")}>#</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("name")}>Name</th>
-              <th className="px-4 py-2 border border-gray-700">Comment</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("comment")}>Comment</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("rating")}>Rating</th>
-              <th className="px-4 py-2 border border-gray-700">Date</th>
+              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("createdAt")}>Date</th>
               <th className="px-4 py-2 border border-gray-700">Action</th>
             </tr>
           </thead>
