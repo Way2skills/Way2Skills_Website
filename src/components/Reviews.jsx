@@ -63,16 +63,16 @@ const ReviewTable = () => {
 
   const paginatedReviews = filteredReviews.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
-  const downloadCSV = () => {
-    const csvHeader = "Name,Comment,Rating,Date\n";
-    const csvRows = filteredReviews.map(
-      (review) => `${review.name},${review.comment},${review.rating},${new Date(review.createdAt).toLocaleString()}`
-    ).join("\n");
+//   const downloadCSV = () => {
+//     const csvHeader = "Name,Comment,Rating,Date\n";
+//     const csvRows = filteredReviews.map(
+//       (review) => `${review.name},${review.comment},${review.rating},${new Date(review.createdAt).toLocaleString()}`
+//     ).join("\n");
 
-    const csvString = csvHeader + csvRows;
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
-    saveAs(blob, "reviews.csv");
-  };
+//     const csvString = csvHeader + csvRows;
+//     const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+//     saveAs(blob, "reviews.csv");
+//   };
 
   return (
     <div className="overflow-x-auto mt-9">
@@ -84,12 +84,12 @@ const ReviewTable = () => {
           onChange={handleSearch}
           className="p-2 border border-gray-500 rounded mr-4"
         />
-        <button
+        {/* <button
           onClick={downloadCSV}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
         >
           Download CSV
-        </button>
+        </button> */}
       </div>
       {loading ? (
         <p>Loading reviews...</p>

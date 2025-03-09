@@ -54,31 +54,31 @@ const RegistrationTable = () => {
 
   const paginatedRegistrations = filteredRegistrations.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
-  const downloadExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(registrations);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
-    XLSX.writeFile(workbook, "registrations.xlsx");
-  };
+//   const downloadExcel = () => {
+//     const worksheet = XLSX.utils.json_to_sheet(registrations);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
+//     XLSX.writeFile(workbook, "registrations.xlsx");
+//   };
 
-  const downloadCSV = () => {
-    const csvContent = [
-      ["Name", "Email", "Phone No", "Course"],
-      ...registrations.map((reg) => [reg.name, reg.email, reg.phone_no, reg.course]),
-    ]
-      .map((row) => row.join(","))
-      .join("\n");
+//   const downloadCSV = () => {
+//     const csvContent = [
+//       ["Name", "Email", "Phone No", "Course"],
+//       ...registrations.map((reg) => [reg.name, reg.email, reg.phone_no, reg.course]),
+//     ]
+//       .map((row) => row.join(","))
+//       .join("\n");
 
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "registrations.csv";
-    link.click();
-  };
+//     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+//     const link = document.createElement("a");
+//     link.href = URL.createObjectURL(blob);
+//     link.download = "registrations.csv";
+//     link.click();
+//   };
 
   return (
     <div className="overflow-x-auto mt-9">
-      <div className="flex justify-between mb-4">
+      <div className="flex mb-4">
         <input
           type="text"
           placeholder="Search by name..."
@@ -86,10 +86,10 @@ const RegistrationTable = () => {
           onChange={handleSearch}
           className="p-2 border border-gray-500 rounded"
         />
-        <div>
+        {/* <div>
           <button onClick={downloadExcel} className="px-4 py-2 bg-green-500 text-white rounded mr-2">Download Excel</button>
           <button onClick={downloadCSV} className="px-4 py-2 bg-blue-500 text-white rounded">Download CSV</button>
-        </div>
+        </div> */}
       </div>
       {loading ? (
         <p>Loading registrations...</p>
