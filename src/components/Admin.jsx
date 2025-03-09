@@ -177,7 +177,7 @@ export default function Admin() {
         <h1 className="text-2xl font-semibold">{activeSection}</h1>
         {activeSection === "Registrations" && <RegistrationTable />}
         {activeSection === "Reviews" && <Reviews />}
-        {activeSection === "Dashboard" && <Dashboard />}
+       {activeSection === "Dashboard" && <div className="h-100">  <Dashboard/> </div> }
       </div>
     </div>
   );
