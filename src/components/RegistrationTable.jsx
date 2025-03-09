@@ -28,7 +28,6 @@ const RegistrationTable = () => {
 
   const deleteRegistration = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
-
     try {
       await axios.delete(`${API_URL}${id}`);
       setRegistrations(registrations.filter((registration) => registration.id !== id));
@@ -51,8 +50,8 @@ const RegistrationTable = () => {
 
   const sortedRegistrations = [...registrations].sort((a, b) => {
     if (!sortConfig.key) return 0;
-    const valA = a[sortConfig.key];
-    const valB = b[sortConfig.key];
+    const valA = a[sortConfig.key].toString().toLowerCase();
+    const valB = b[sortConfig.key].toString().toLowerCase();
     if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
     if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
@@ -66,7 +65,6 @@ const RegistrationTable = () => {
 
   return (
     <div className="overflow-x-auto mt-9">
-      
       <input
         type="text"
         placeholder="Search by name..."
@@ -81,10 +79,15 @@ const RegistrationTable = () => {
           <thead className="bg-gray-900 text-white">
             <tr>
               <th className="px-4 py-2 border border-gray-700">#</th>
-              <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("name")}>Name</th>
-              <th className="px-4 py-2 border border-gray-700">Email</th>
-              <th className="px-4 py-2 border border-gray-700">Phone No</th>
-              <th className="px-4 py-2 border border-gray-700">Course</th>
+              {['name', 'email', 'phone_no', 'course'].map((field) => (
+                <th
+                  key={field}
+                  className="px-4 py-2 border border-gray-700 cursor-pointer"
+                  onClick={() => handleSort(field)}
+                >
+                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                </th>
+              ))}
               <th className="px-4 py-2 border border-gray-700">Action</th>
             </tr>
           </thead>
@@ -110,27 +113,15 @@ const RegistrationTable = () => {
         </table>
       )}
       <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
+        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50">Previous</button>
         <span>Page {currentPage}</span>
-        <button
-          onClick={() => setCurrentPage((prev) => (filteredRegistrations.length > prev * rowsPerPage ? prev + 1 : prev))}
-          disabled={filteredRegistrations.length <= currentPage * rowsPerPage}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Next
-        </button>
+        <button onClick={() => setCurrentPage((prev) => (filteredRegistrations.length > prev * rowsPerPage ? prev + 1 : prev))} disabled={filteredRegistrations.length <= currentPage * rowsPerPage} className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50">Next</button>
       </div>
       {selectedTransaction && (
-        <div className="fixed inset-0 flex items-center justify-center w-[50%] h-[80%] bg-black bg-opacity-75">
-          <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-[50%] max-w-2xl text-center">
             <h3 className="text-xl font-semibold mb-4">Transaction Image</h3>
-            <h5>Transection ID : {selectedTransaction.transactionId}</h5>
+            <h5>Transaction ID: {selectedTransaction.transactionId}</h5>
             <img src={`data:image/png;base64,${selectedTransaction.file_base64}`} alt="Transaction" className="w-full" />
             <button onClick={() => setSelectedTransaction(null)} className="mt-4 bg-red-500 px-4 py-2 rounded">Close</button>
           </div>
