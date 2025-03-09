@@ -4,12 +4,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import RegistrationTable from "./RegistrationTable";
+import Reviews from "./Reviews";
 
 // Admin navigation items
 const adminNavigation = [
   { name: "Dashboard", section: "Dashboard" },
   { name: "Registrations", section: "Registrations" },
-  { name: "Settings", section: "Settings" },
+  { name: "Reviews", section: "Reviews" },
 ];
 
 function classNames(...classes) {
@@ -174,6 +175,7 @@ export default function Admin() {
       <div className="flex-1 p-6 overflow-y-auto">
         <h1 className="text-2xl font-semibold">{activeSection}</h1>
         {activeSection === "Registrations" && <RegistrationTable />}
+        {activeSection === "Reviews" && <Reviews />}
       </div>
     </div>
   );

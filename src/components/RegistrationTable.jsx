@@ -17,7 +17,7 @@ const RegistrationTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}registrations/`);
+                const response = await axios.get(`${API_URL}registrations/`,{ maxRedirects: 5 });
                 setData(response.data);
                 setFilteredData(response.data);
                 findDuplicates(response.data);
@@ -58,34 +58,7 @@ const RegistrationTable = () => {
                 item.course.toLowerCase().includes(value)
         );
         setFilteredData(filtered);
-        setCurrentPage(1); // Reset to first page on search
-    };
-
-    const handleSort = (key) => {
-        let direction = "asc";
-        if (sortConfig.key === key && sortConfig.direction === "asc") {
-            direction = "desc";
-        }
-        const sortedData = [...filteredData].sort((a, b) => {
-            if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
-            if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
-            return 0;
-        });
-        setSortConfig({ key, direction });
-        setFilteredData(sortedData);
-    };
-
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this record?")) {
-            try {
-                await axios.delete(`${API_URL}${id}`);
-                setData((prevData) => prevData.filter((item) => item.id !== id));
-                setFilteredData((prevData) => prevData.filter((item) => item.id !== id));
-                findDuplicates(filteredData);
-            } catch (error) {
-                console.error("Error deleting record:", error);
-            }
-        }
+        setCurrentPage(1);
     };
 
     const handleRowClick = (record) => {
@@ -119,79 +92,38 @@ const RegistrationTable = () => {
                     <table className="w-full border border-gray-700 text-sm">
                         <thead className="bg-black text-white">
                             <tr>
-                                <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("id")}>
-                                    # 
-                                </th>
-                                <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("name")}>
-                                    Name {sortConfig.key === "id" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-                                </th>
-                                <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("email")}>Email</th>
-                                <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("phone_no")}>Phone No</th>
-                                <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("course")}>Course</th>
-                                <th className="px-4 py-2 border border-gray-700">Actions</th>
+                                <th className="px-4 py-2 border border-gray-700">#</th>
+                                <th className="px-4 py-2 border border-gray-700">Name</th>
+                                <th className="px-4 py-2 border border-gray-700">Email</th>
+                                <th className="px-4 py-2 border border-gray-700">Phone No</th>
+                                <th className="px-4 py-2 border border-gray-700">Course</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {paginatedData.length > 0 ? (
-                                paginatedData.map((item, index) => (
-                                    <tr
-                                        key={item.id}
-                                        className={`border border-gray-700 hover:text-orange-400 transition cursor-pointer `}
-                                        onClick={() => handleRowClick(item)}
-                                    >
-                                        <td className="px-4 py-2 border border-gray-700">
-                                            {startIndex + index + 1}{" "}
-                                            {duplicateRows.includes(item.id) && (
-                                                <span className="inline-block w-2.5 h-2.5 bg-red-500 rounded-full ml-2 animate-blink"></span>
-                                            )}
-                                        </td>
-                                        <td className="px-4 py-2 border border-gray-700">{item.name}</td>
-                                        <td className="px-4 py-2 border border-gray-700">{item.email}</td>
-                                        <td className="px-4 py-2 border border-gray-700">{item.phone_no}</td>
-                                        <td className="px-4 py-2 border border-gray-700">{item.course}</td>
-                                        <td className="px-4 py-2 border border-gray-700">
-                                            <button
-                                                className="bg-red-500 hover:bg-black text-white py-1 px-3 rounded"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleDelete(item.id);
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="6" className="text-center py-4 text-gray-400">
-                                        No records found
-                                    </td>
+                            {paginatedData.map((item, index) => (
+                                <tr key={item.id} onClick={() => handleRowClick(item)} className="cursor-pointer hover:bg-gray-800">
+                                    <td className="px-4 py-2 border border-gray-700">{startIndex + index + 1}</td>
+                                    <td className="px-4 py-2 border border-gray-700">{item.name}</td>
+                                    <td className="px-4 py-2 border border-gray-700">{item.email}</td>
+                                    <td className="px-4 py-2 border border-gray-700">{item.phone_no}</td>
+                                    <td className="px-4 py-2 border border-gray-700">{item.course}</td>
                                 </tr>
-                            )}
+                            ))}
                         </tbody>
                     </table>
                 </div>
             )}
 
-            {/* Pagination Controls */}
-            <div className="flex justify-center mt-4">
-                <button
-                    className={`px-4 py-2 mx-2 ${currentPage === 1 ? "bg-gray-600 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white rounded`}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <span className="text-white px-4 py-2">Page {currentPage} of {totalPages}</span>
-                <button
-                    className={`px-4 py-2 mx-2 ${currentPage === totalPages ? "bg-gray-600 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white rounded`}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+            {selectedRecord && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
+                    <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-1/2">
+                        <h3 className="text-xl font-semibold mb-4">Transaction Details</h3>
+                        <p><strong>Transaction ID:</strong> {selectedRecord.transactionId}</p>
+                        <img src={`data:image/png;base64,${selectedRecord.file_base64}`} alt="Transaction" className="w-full mt-4" />
+                        <button onClick={closeModal} className="mt-4 bg-red-500 px-4 py-2 rounded">Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
