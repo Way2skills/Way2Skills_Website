@@ -102,7 +102,7 @@ const ReviewTable = () => {
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("comment")}>Comment</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("rating")}>Rating</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("createdAt")}>Date</th>
-              <th className="px-4 py-2 border border-gray-700">Action</th>
+              <th className="px-4 py-2 border border-gray-700">Action </th>
             </tr>
           </thead>
           <tbody>
