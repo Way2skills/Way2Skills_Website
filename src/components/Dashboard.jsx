@@ -13,11 +13,11 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const regRes = await fetch("https://backend-way2skills.onrender.com/api/v1/register/registrations");
+        const regRes = await fetch(`{import.meta.env.VITE_BACKEND_BASE_URL}/api/v1/register/registrations`);
         const regData = await regRes.json();
         setRegistrations(regData.length);
 
-        const revRes = await fetch("https://backend-way2skills.onrender.com/api/v1/reviews");
+        const revRes = await fetch(`{import.meta.env.VITE_BACKEND_BASE_URL}/api/v1/reviews`);
         const revData = await revRes.json();
         setReviews(revData.length);
 
