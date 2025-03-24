@@ -9,13 +9,13 @@ import CourseRegistrationForm from "./CourseRegistrationForm";
 import ReviewSystem from "./ReviewSystem";
 import { SocialLinks } from "../constants";
 import { Instagram } from "lucide-react";
-import PopupModal from "./PopupModal"; // Import the modal component
+//import PopupModal from "./PopupModal"; // Import the modal component
 
 const Home = () => {
   return (
     <>
       <Navbar />
-      <PopupModal /> {/* Add the pop-up modal here */}
+       {/*<PopupModal /> Add the pop-up modal here */}
       <div className="max-w-7xl mx-auto pt-20 px-6">
         <HeroSection />
         
