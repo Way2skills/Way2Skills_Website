@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import AISearchComponent from "./AISearchComponent";
 // import { saveAs } from "file-saver";
 
 const ReviewTable = () => {
@@ -8,6 +9,8 @@ const ReviewTable = () => {
   const [search, setSearch] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
+  const [useAISearch, setUseAISearch] = useState(false);
+  const [aiResults, setAiResults] = useState([]);
   const rowsPerPage = 10;
 
   useEffect(() => {
@@ -63,6 +66,14 @@ const ReviewTable = () => {
 
   const paginatedReviews = filteredReviews.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
+  // Handle AI search results
+  const handleAIResults = (results) => {
+    setAiResults(results);
+  };
+
+  // Determine which data to display
+  const displayData = useAISearch && aiResults.length > 0 ? aiResults : paginatedReviews;
+
 //   const downloadCSV = () => {
 //     const csvHeader = "Name,Comment,Rating,Date\n";
 //     const csvRows = filteredReviews.map(
@@ -76,21 +87,54 @@ const ReviewTable = () => {
 
   return (
     <div className="overflow-x-auto mt-9">
-      <div className="flex mb-4">
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={search}
-          onChange={handleSearch}
-          className="p-2 border border-gray-500 rounded mr-4"
-        />
-        {/* <button
-          onClick={downloadCSV}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-        >
-          Download CSV
-        </button> */}
+      {/* Search Mode Toggle */}
+      <div className="mb-4">
+        <div className="flex items-center gap-4 mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={useAISearch}
+              onChange={(e) => setUseAISearch(e.target.checked)}
+              className="mr-2"
+            />
+            <span className="text-sm font-medium">
+              🤖 Use AI Search (Beta)
+            </span>
+          </label>
+        </div>
+
+        {useAISearch ? (
+          /* AI Search Component */
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <h3 className="text-lg font-semibold text-blue-900 mb-3">
+              🧠 AI-Powered Review Search
+            </h3>
+            <AISearchComponent
+              searchType="reviews"
+              placeholder="Search reviews with AI - try 'excellent teaching' or 'great experience'..."
+              onResults={handleAIResults}
+            />
+          </div>
+        ) : (
+          /* Traditional Search */
+          <div className="flex mb-4">
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={search}
+              onChange={handleSearch}
+              className="p-2 border border-gray-500 rounded mr-4"
+            />
+            {/* <button
+              onClick={downloadCSV}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+            >
+              Download CSV
+            </button> */}
+          </div>
+        )}
       </div>
+
       {loading ? (
         <p>Loading reviews...</p>
       ) : (
@@ -103,16 +147,34 @@ const ReviewTable = () => {
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("rating")}>Rating</th>
               <th className="px-4 py-2 border border-gray-700 cursor-pointer" onClick={() => handleSort("createdAt")}>Date</th>
               <th className="px-4 py-2 border border-gray-700">Action </th>
+              {useAISearch && aiResults.length > 0 && (
+                <th className="px-4 py-2 border border-gray-700">🎯 AI Relevance</th>
+              )}
             </tr>
           </thead>
           <tbody>
-            {paginatedReviews.map((review, index) => (
+            {displayData.map((review, index) => (
               <tr key={review.id} className="hover:bg-gray-800">
-                <td className="px-4 py-2 border border-gray-700">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {useAISearch ? review.id : (currentPage - 1) * rowsPerPage + index + 1}
+                </td>
                 <td className="px-4 py-2 border border-gray-700">{review.name}</td>
                 <td className="px-4 py-2 border border-gray-700">{review.comment}</td>
-                <td className="px-4 py-2 border border-gray-700">{review.rating}</td>
-                <td className="px-4 py-2 border border-gray-700">{new Date(review.createdAt).toLocaleString()}</td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {review.rating ? (
+                    <div className="flex items-center">
+                      <span className="text-yellow-500">{"★".repeat(review.rating)}</span>
+                      <span className="text-gray-400">{"☆".repeat(5 - review.rating)}</span>
+                      <span className="ml-1 text-sm">({review.rating}/5)</span>
+                    </div>
+                  ) : (
+                    review.rating || "N/A"
+                  )}
+                </td>
+                <td className="px-4 py-2 border border-gray-700">
+                  {review.created_at ? new Date(review.created_at).toLocaleString() : 
+                   review.createdAt ? new Date(review.createdAt).toLocaleString() : "N/A"}
+                </td>
                 <td className="px-4 py-2 border border-gray-700">
                   <button
                     onClick={() => deleteReview(review.id)}
@@ -121,28 +183,58 @@ const ReviewTable = () => {
                     Delete
                   </button>
                 </td>
+                {useAISearch && aiResults.length > 0 && (
+                  <td className="px-4 py-2 border border-gray-700">
+                    {review.similarity && (
+                      <div className="flex items-center">
+                        <div className="w-full bg-gray-200 rounded-full h-2 mr-2">
+                          <div 
+                            className="bg-blue-600 h-2 rounded-full"
+                            style={{ width: `${(review.similarity * 100)}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-xs text-gray-600">
+                          {(review.similarity * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                    )}
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       )}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span>Page {currentPage}</span>
-        <button
-          onClick={() => setCurrentPage((prev) => (filteredReviews.length > prev * rowsPerPage ? prev + 1 : prev))}
-          disabled={filteredReviews.length <= currentPage * rowsPerPage}
-          className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+
+      {/* Traditional Pagination - only show for non-AI search */}
+      {!useAISearch && (
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span>Page {currentPage}</span>
+          <button
+            onClick={() => setCurrentPage((prev) => (filteredReviews.length > prev * rowsPerPage ? prev + 1 : prev))}
+            disabled={filteredReviews.length <= currentPage * rowsPerPage}
+            className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {/* AI Search Results Info */}
+      {useAISearch && aiResults.length > 0 && (
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <p className="text-sm text-blue-800">
+            🎯 Showing {aiResults.length} AI-powered search results with relevance scores
+          </p>
+        </div>
+      )}
     </div>
   );
 };
