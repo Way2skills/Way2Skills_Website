@@ -9,6 +9,8 @@ const navigation = [
   { name: "Home", href: "/", current: false },
   { name: "About Us", href: "/about-us", current: false },
   { name: "Courses", href: "/Courses", current: false },
+  { name: "IT Solutions", href: "/it-solutions", current: false },
+  { name: "Offers", href: "https://way2skills-vijayadas-bdbu.bolt.host", current: false, external: true },
 ];
 
 function classNames(...classes) {
@@ -46,8 +48,11 @@ export default function Navbar() {
                     <a
                       key={item.name}
                       href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
                       className={classNames(
                         item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        item.name === "Offer" ? "text-orange-400 hover:text-orange-300 hover:bg-orange-900/20" : "",
                         "rounded-md px-3 py-2 text-sm font-medium"
                       )}
                     >
@@ -78,8 +83,11 @@ export default function Navbar() {
                     key={item.name}
                     as="a"
                     href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
                     className={classNames(
                       item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      item.name === "Offer" ? "text-orange-400 hover:text-orange-300 hover:bg-orange-900/20" : "",
                       "block rounded-md px-3 py-2 text-base font-medium"
                     )}
                   >

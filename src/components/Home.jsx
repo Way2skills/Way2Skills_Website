@@ -9,13 +9,13 @@ import CourseRegistrationForm from "./CourseRegistrationForm";
 import ReviewSystem from "./ReviewSystem";
 import { SocialLinks } from "../constants";
 import { Instagram } from "lucide-react";
-//import PopupModal from "./PopupModal"; // Import the modal component
+import PopupModal from "./PopupModal"; // Import the modal component
 
 const Home = () => {
   return (
     <>
       <Navbar />
-       {/*<PopupModal /> Add the pop-up modal here */}
+      <PopupModal /> {/* Pop-up modal with poster image */}
       <div className="max-w-7xl mx-auto pt-20 px-6">
         <HeroSection />
         
@@ -47,7 +47,7 @@ const Home = () => {
         </div>
 
         {/* Office Address Section */}
-        <div className="mt-6 text-gray-300 text-sm leading-relaxed space-y-1">
+        {/* <div className="mt-6 text-gray-300 text-sm leading-relaxed space-y-1">
           <p className="font-semibold text-white">Office Address:</p>
           <p>6/54A, Melapatti,</p>
           <p>Near SMN Poultry Farm,</p>
@@ -63,7 +63,7 @@ const Home = () => {
               way2skills.learn@gmail.com
             </a>
           </p>
-        </div>
+        </div> */}
 
 
         <FeatureSection />

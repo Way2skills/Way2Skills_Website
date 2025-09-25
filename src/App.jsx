@@ -2,6 +2,7 @@
 import AboutUs from "./components/AboutUs";
 import Home from "./components/Home";
 import Courses from "./components/Courses";
+import ITSolutions from "./components/ITSolutions";
 import { BrowserRouter as Router, Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import CourseRegistrationForm from "./components/CourseRegistrationForm";
 import ContactUs from "./components/ContactUs";
@@ -17,6 +18,7 @@ const App = () => {
     <Route path="/" element={<Home/>}/>
     <Route path="/about-us" element={<AboutUs/>}/>
     <Route path="/Courses" element={<Courses/>}/>
+    <Route path="/it-solutions" element={<ITSolutions/>}/>
     <Route path="/blogger" element={<Navigate to="/" />}/>
     <Route path="*" element={<Navigate to="/" />} />
     <Route path="/Register" element={<ContactUs/>}/>
