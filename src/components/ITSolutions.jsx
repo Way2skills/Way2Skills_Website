@@ -83,7 +83,7 @@ const ITSolutions = () => {
         </div>
 
         {/* Office Address Section - Home Page Style */}
-        <div className="mt-6 text-gray-300 text-sm leading-relaxed space-y-1">
+        {/* <div className="mt-6 text-gray-300 text-sm leading-relaxed space-y-1">
           <p className="font-semibold text-white">Office Address:</p>
           <p>6/54A, Melapatti,</p>
           <p>Near SMN Poultry Farm,</p>
@@ -99,7 +99,7 @@ const ITSolutions = () => {
               way2skills.learn@gmail.com
             </a>
           </p>
-        </div>
+        </div> */}
 
         {/* Solutions Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
