@@ -10,6 +10,7 @@ import TermsAndConditions from "./components/TermsAndConditions";
 import PoliciesComponent from "./components/PoliciesComponent";
 import RefundPolicy from "./components/RefundPolicy";
 import Admin from "./components/Admin";
+import AISearchDashboard from "./components/AISearchDashboard";
 const App = () => {
   return (
     <>
@@ -24,6 +25,7 @@ const App = () => {
     <Route path="/Register" element={<ContactUs/>}/>
     <Route path="/CourseRegister" element={<CourseRegistrationForm/>}/>
     <Route path="/Admin" element={<Admin/>}/>
+    <Route path="/ai-search" element={<AISearchDashboard/>}/>
   
     <Route path="/T&C" element={<TermsAndConditions/>}/>
     <Route path="/privacy_policy" element={<PoliciesComponent/>}/>
